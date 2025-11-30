@@ -38,9 +38,9 @@ export default function HomeContent() {
         <div className="bg-white shadow-xl p-4 rounded-md">
             <HomeTableTitle addTask={() => manageTask(undefined)} />
             <div className="mt-4 md:mt-6">
-                <HomeTableContent isLoading={isLoading} tasks={tasks} meta={meta} updateTask={manageTask} />
+                <HomeTableContent tasks={tasks} meta={meta} updateTask={manageTask} />
                 <PaginationTable
-                    className={cn("mt-4", { "hidden": tasks.length === 0 })}
+                    className={cn("mt-4", { "hidden": isLoading || tasks.length === 0 })}
                     currentPage={meta.page}
                     totalPages={meta.totalPages}
                     paginationItemsToDisplay={paginationItemsToDisplay}

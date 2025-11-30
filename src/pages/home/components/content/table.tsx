@@ -9,10 +9,9 @@ import { FaEdit } from 'react-icons/fa';
 type Props = {
     tasks: Task[]
     meta: Meta
-    isLoading: boolean
     updateTask: (id: string) => void
 }
-export default function HomeTableContent({ tasks, meta, isLoading, updateTask }: Props) {
+export default function HomeTableContent({ tasks, meta, updateTask }: Props) {
 
     return (
         <Table className='w-full'>
@@ -27,7 +26,7 @@ export default function HomeTableContent({ tasks, meta, isLoading, updateTask }:
             </TableHeader>
 
             {
-                tasks.length === 0 || isLoading ? (
+                tasks.length === 0 ? (
                     <TableBody>
                         <TableRow>
                             <TableCell colSpan={5} className="h-24 text-center">
