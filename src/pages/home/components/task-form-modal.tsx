@@ -26,7 +26,7 @@ import { TaskStatus } from '@/enums/task.enum';
 import { taskQueryKey, useCreateTask, useDeleteTask, useGetTaskById, useUpdateTask } from '@/hooks/use-task';
 import { cn } from '@/lib/utils';
 import { useFilterTask } from '@/pages/home/hooks/use-filter-task';
-import { createTaskSchema, type CreateTaskRequest } from '@/schemas/task.schema';
+import { createTaskSchema, type CreateTaskRequest, type UpdateTaskRequest } from '@/schemas/task.schema';
 import { getMassageAxiosError } from '@/utils/manage-error';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
@@ -82,7 +82,7 @@ export const TaskFormModal = NiceModal.create<{ id?: string }>(({ id }) => {
         })
 
     };
-    const handleUpdate = async (reqData: CreateTaskRequest) => {
+    const handleUpdate = async (reqData: UpdateTaskRequest) => {
         if (!id) return;
         updateTask({ id, reqData }, {
             onSuccess: () => {
@@ -147,7 +147,7 @@ export const TaskFormModal = NiceModal.create<{ id?: string }>(({ id }) => {
                                 <FormItem>
                                     <FormLabel>Title</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Type your title here." {...field} />
+                                        <Input readOnly={!!id} className={cn(!!id && 'bg-gray-100')} placeholder="Type your title here." {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -160,7 +160,7 @@ export const TaskFormModal = NiceModal.create<{ id?: string }>(({ id }) => {
                                 <FormItem>
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
-                                        <Textarea rows={5} placeholder="Type your description here." {...field} />
+                                        <Textarea readOnly={!!id} className={cn(!!id && 'bg-gray-100')} rows={5} placeholder="Type your description here." {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -175,7 +175,7 @@ export const TaskFormModal = NiceModal.create<{ id?: string }>(({ id }) => {
                                     <FormControl>
                                         <Select
                                             onValueChange={field.onChange}
-                                            defaultValue={field.value}
+                                            value={field.value}
 
                                         >
                                             <SelectTrigger className='w-full'>
